@@ -17,7 +17,7 @@ const MovieListItem = ({movie}) => {
                     </div>
                     <div className="col-md-8 col-xs-8">
                         <h3>{movie.name ? movie.name : movie.title}</h3>
-                        <p><strong>Date:</strong> {movie.release_date}</p>
+                        <p><strong>Date ::</strong> {movie.release_date}</p>
                         <p><strong>Average Rating:</strong> {movie.vote_average}</p>
                         <p>{movie.overview ? movie.overview : 'No overview to show.Sorry.'}</p>
                         <Link to={`/show/${movie.id}`} className="btn btn-primary">More</Link>
