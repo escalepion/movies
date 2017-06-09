@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import {connect} from 'react-redux';
-import {fetchOneMovie} from '../actions/';
+import {fetchOneMovie, clearOneFetchMovie} from '../actions/';
+import image from '../images/no-image.png';
 
 class MovieShow extends Component {
     componentWillMount() {
         this.props.fetchOneMovie(this.props.params.id);
     }
+    componentWillUnmount() {
+        this.props.clearOneFetchMovie();
+    }
     render () {
+        const {movie} = this.props;
         if (!this.props.movie) {
             return (<div>Loading</div>);
         }
         return (
             <div>
-                {console.log(this.props.movie.id)} <Link to="/" className="btn btn-danger">Back</Link>
-            </div>
+            <div className="row movie_list_container">
+                    <div className="col-md-4 col-xs-4 text-center">
+                        <img alt="poster" className="img-responsive movie_list_img" src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : image} />
+                    </div>
+                    <div className="col-md-8 col-xs-8">
+                        <h3>{movie.name ? movie.name : movie.title}</h3>
+                        <p><strong>Date :</strong> {movie.release_date}</p>
+                        <p><strong>Average Rating:</strong> {movie.vote_average}</p>
+                        <p>{movie.overview ? movie.overview : 'No overview to show.Sorry.'}</p>
+                        <Link to="/" className="btn btn-danger">Back</Link>
+                    </div>
+               </div>
+        </div>
         );
     }
 }
@@ -23,4 +39,4 @@ function mapStateToProps(state) {
     return {movie: state.movies.movie}; 
 }
 
-export default connect(mapStateToProps, {fetchOneMovie})(MovieShow);
+export default connect(mapStateToProps, {fetchOneMovie, clearOneFetchMovie})(MovieShow);
