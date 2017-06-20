@@ -6,7 +6,7 @@ import image from '../images/no-image.png';
 
 class MovieShow extends Component {
     componentWillMount() {
-        this.props.fetchOneMovie(this.props.params.id);
+        this.props.fetchOneMovie(this.props.params.id, this.props.params.media_type);
     }
     componentWillUnmount() {
         this.props.clearOneFetchMovie();

@@ -2,12 +2,15 @@ import React from 'react';
 import image from '../images/no-image.png';
 import {Link} from 'react-router';
 
-const MovieListItem = ({movie}) => {
+const MovieListItem = ({movie, tab }) => {
     let url= null;
     if (movie.poster_path) {
        url = `https://image.tmdb.org/t/p/w185${movie.poster_path}`;
     } else {
        url = image;
+    }
+    if (movie.media_type !== tab ) {
+        return null;
     }
     return (
         <div>
@@ -20,7 +23,7 @@ const MovieListItem = ({movie}) => {
                         <p><strong>Date :</strong> {movie.release_date}</p>
                         <p><strong>Average Rating:</strong> {movie.vote_average}</p>
                         <p>{movie.overview ? movie.overview : 'No overview to show.Sorry.'}</p>
-                        <Link to={`/show/${movie.id}`} className="btn btn-primary">More</Link>
+                        <Link to={`/show/${movie.media_type}/${movie.id}`} className="btn btn-primary">More</Link>
                     </div>
                </div>
         </div>

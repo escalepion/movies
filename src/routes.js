@@ -8,6 +8,6 @@ import App from './App';
 export default (
 <Route path="/" component={App}>
     <IndexRoute component={MovieList} />
-    <Route path="show/:id" component={MovieShow} />
+    <Route path="show/:media_type/:id" component={MovieShow} />
 </Route>
 );
