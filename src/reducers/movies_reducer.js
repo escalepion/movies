@@ -2,7 +2,7 @@ import { FETCH_MOVIES,
         CLEAR_FETCH_MOVIES, 
         FETCH_ONE_MOVIE,
         CLEAR_ONE_FETCH_MOVIE    
-     } from '../actions/index';
+     } from '../actions/types';
 
 const INITIAL_STATE = { all: [], movie: null};
 
