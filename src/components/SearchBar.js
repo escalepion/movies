@@ -17,7 +17,7 @@ onInputChange(event) {
 
 onFormSubmit(event) {
     event.preventDefault();
-    if(!this.state.term == '') {
+    if(this.state.term) {
     this.props.fetchMovies(this.state.term);
     this.setState({ term: ''});
     }

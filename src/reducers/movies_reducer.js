@@ -15,7 +15,7 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_ONE_MOVIE:
             return {...state, movie: action.payload.data};
         case CLEAR_ONE_FETCH_MOVIE:
-            return {...state, movie: null}
+            return {...state, movie: null};
         default:
             return state;
     }
