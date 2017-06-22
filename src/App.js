@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './App.css';
+import Header from './components/header';
 
 class App extends Component {
   componentWillMount() {
@@ -17,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <div>
+      <Header />
         {this.props.children}
       </div>
     );
