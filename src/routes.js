@@ -5,11 +5,13 @@ import MovieList from './containers/MovieList';
 
 import App from './App';
 import Signup from './components/auth/signup';
+import Signin from './components/auth/signin';
 
 export default (
 <Route path="/" component={App}>
     <IndexRoute component={MovieList} />
     <Route path="signup" component={Signup} />
+    <Route path="signin" component={Signin} />
     <Route path="show/:media_type/:id" component={MovieShow} />
 </Route>
 );
