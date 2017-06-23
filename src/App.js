@@ -36,6 +36,7 @@ state = {
 }
 
   render() {
+    console.log(firebase.auth().currentUser);
     return this.state.loading ? <h1>Loading</h1> : (
       <div>
       <Header />

@@ -4,7 +4,8 @@ import {
     USER_SIGNUP_FAIL,
     USER_SIGNUP_SUCCESS,
     USER_LOGGED_IN,
-    USER_LOGGED_OUT
+    USER_LOGGED_OUT,
+    CLEAR_FORM_ERROR
 } from './types';
 
 export function signUpUser({email, password}) {
@@ -33,8 +34,14 @@ export function userLoggedIn() {
     };
 }
 export function userLoggedOut() {
-    return {
-        type: USER_LOGGED_OUT
-    };
+    return function(dispatch) {
+        firebase.auth().signOut()
+        .then(() => dispatch({type: USER_LOGGED_OUT}))
+        .catch(error => console.log(error));
+    }
 }
-
+export function clearFormError() {
+return {
+    type: CLEAR_FORM_ERROR
+};
+}

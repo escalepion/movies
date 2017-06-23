@@ -16,6 +16,9 @@ class Signup extends Component {
     handleFormSubmit(values) {
         this.props.signUpUser(values);
     }
+    componentWillUnmount() {
+        this.props.clearFormError();
+    }
     render() {
         const { handleSubmit} = this.props;
         return (
