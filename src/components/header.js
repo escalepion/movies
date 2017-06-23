@@ -4,25 +4,6 @@ import { Link } from 'react-router';
 import firebase from 'firebase';
 
 class Header extends Component{
-    state = {
-    authed: false,
-    loading: true,
-  }
-  componentDidMount () {
-   firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-          loading: false,
-        })
-      } else {
-        this.setState({
-          authed: false,
-          loading: false
-        })
-      }
-    })
-  }
     render() {
         console.log(firebase.auth().currentUser);
         return (
@@ -31,7 +12,13 @@ class Header extends Component{
                 <Link to="/" className="navbar-brand">Home</Link>
             </div>
                 <ul className="nav navbar-nav">
-                   <li><a href="#"> {this.state.authed ? 'authed' : 'not outhed'}</a></li>
+                  {this.props.userLogged
+                    ?<li><Link to="signout">Signout</Link></li>
+                   :<span>
+                   <li><Link to="signin">Signin</Link></li>
+                   <li><Link to="signup">Sign Up</Link></li>
+                   </span>
+                  }
                 </ul>
             </nav>
         );

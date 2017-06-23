@@ -1,7 +1,8 @@
 import {
     USER_SIGNUP_FAIL,
     USER_SIGNUP_SUCCESS,
-    USER_LOGGED_IN
+    USER_LOGGED_IN,
+    USER_LOGGED_OUT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,6 +12,8 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
+        case USER_LOGGED_OUT:
+            return {...state, userLogged: false};
         case USER_LOGGED_IN:
             return {...state, userLogged: true};
         case USER_SIGNUP_FAIL:

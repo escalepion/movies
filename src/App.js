@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import './App.css';
 import Header from './components/header';
+import { userLoggedIn, userLoggedOut } from './actions/auth';
+import { connect } from 'react-redux';
 
 class App extends Component {
+state = {
+    loading: true
+  }
   componentWillMount() {
     const config = {
     apiKey: "AIzaSyDJcXKuZI13TUWzKK6kXdZA3Gxu1XuvMNk",
@@ -14,9 +19,24 @@ class App extends Component {
     messagingSenderId: "790483019248"
   };
   firebase.initializeApp(config);
-  }
+
+  firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.userLoggedIn();
+        this.setState({
+          loading: false
+        });
+      } else {
+        this.props.userLoggedOut();
+        this.setState({
+          loading:false
+        });
+      }
+    });
+}
+
   render() {
-    return (
+    return this.state.loading ? <h1>Loading</h1> : (
       <div>
       <Header />
         {this.props.children}
@@ -24,4 +44,8 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps (state) {
+  return {userLogged: state.auth.userLogged};
+}
+export default connect(mapStateToProps, {userLoggedIn, userLoggedOut})(App);

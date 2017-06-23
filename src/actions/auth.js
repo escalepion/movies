@@ -3,7 +3,8 @@ import firebase from 'firebase';
 import { 
     USER_SIGNUP_FAIL,
     USER_SIGNUP_SUCCESS,
-    USER_LOGGED_IN
+    USER_LOGGED_IN,
+    USER_LOGGED_OUT
 } from './types';
 
 export function signUpUser({email, password}) {
@@ -24,5 +25,16 @@ export function signInUser({email, password}) {
         dispatch({type: USER_SIGNUP_FAIL, payload: error.message});
              });
     }
+}
+
+export function userLoggedIn() {
+    return {
+        type: USER_LOGGED_IN
+    };
+}
+export function userLoggedOut() {
+    return {
+        type: USER_LOGGED_OUT
+    };
 }
 
