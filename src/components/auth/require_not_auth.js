@@ -9,18 +9,18 @@ export default function(ComposedComponent) {
     }
 
     componentWillMount() {
-      if (!this.props.authenticated) {
+      if (this.props.authenticated) {
         this.context.router.push('/');
       }
     }
 
     componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
+      if (nextProps.authenticated) {
         this.context.router.push('/');
       }
     }
 
-    render() {     
+    render() {       
       return <ComposedComponent {...this.props} />
     }
   }
