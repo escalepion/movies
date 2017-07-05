@@ -9,7 +9,7 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 
 function loggedIn() {
-  return false;
+  return true;
 }
 function requireAuth(nextState, replace) {
   if(!loggedIn()){
@@ -18,10 +18,17 @@ function requireAuth(nextState, replace) {
     })
   }
 }
+function requireNotAuth(nextState, replace) {
+  if(loggedIn()){
+    replace({
+      pathname: '/'
+    })
+  }
+}
 export default (
 <Route path="/" component={App}>
     <IndexRoute component={MovieList} />
-    <Route path="signup" component={Signup} onEnter={requireAuth}/>
+    <Route path="signup" component={Signup} onEnter={requireNotAuth}/>
     <Route path="signin" component={Signin} />
     <Route path="signout" component={Signout} />
     <Route path="show/:media_type/:id" component={MovieShow} />
