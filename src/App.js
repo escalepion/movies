@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './App.css';
-import Header from './components/header';
 import { userLoggedIn, userLoggedOut } from './actions/auth';
 import { connect } from 'react-redux';
+import Header from './components/header';
+import RightUserBox from './components/right_user_box';
 
 class App extends Component {
 state = {
@@ -39,8 +40,15 @@ state = {
     console.log(firebase.auth().currentUser);
     return this.state.loading ? <h1>Loading</h1> : (
       <div>
-      <Header />
-        {this.props.children}
+        <Header />
+        <div className="row">
+          <div className="col-xs-12 col-sm-9 col-md-9">
+            {this.props.children}
+          </div>
+          <div className="hidden-xs col-sm-3 col-md3">
+            <RightUserBox loggedIn={this.props.userLogged}/>
+          </div>
+        </div>
       </div>
     );
   }
