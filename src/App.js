@@ -25,7 +25,8 @@ state = {
       if (user) {
         this.props.userLoggedIn();
         this.setState({
-          loading: false
+          loading: false,
+          uid: user.uid
         });
       } else {
         this.props.userLoggedOut();
@@ -37,7 +38,7 @@ state = {
 }
 
   render() {
-    console.log(firebase.auth().currentUser);
+    firebase.auth().currentUser ? console.log(firebase.auth().currentUser.uid) : console.log('no user');
     return this.state.loading ? <h1>Loading</h1> : (
       <div>
         <Header />
