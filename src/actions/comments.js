@@ -1,7 +1,8 @@
 import firebase from 'firebase';
 import {
     ADD_COMMENT_FEEDBACK,
-    RESET_FEEDBACK_STATUS
+    RESET_FEEDBACK_STATUS,
+    FETCH_MOVIE_COMMENTS
 } from './types';
 
 export function addComment ({comment}, id) {
@@ -37,5 +38,14 @@ return {
 export function resetFeedbackStatus () {
     return {
         type: RESET_FEEDBACK_STATUS
+    }
+}
+
+export function fetchMovieComments (id) {
+    const ref = firebase.database().ref(`comments/${id}`);
+    return (dispatch) => {
+        ref.on('value', function(snapshot) {
+            dispatch({ type: FETCH_MOVIE_COMMENTS, payload: snapshot.val()});
+        });
     }
 }

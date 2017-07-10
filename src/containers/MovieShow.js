@@ -23,7 +23,7 @@ class MovieShow extends Component {
         return (
             <div>
                 <MovieDetail movie={movie}/>
-                <Comments />
+                <Comments movie={movie}/>
                 <CommentText movie={movie}/>
             </div>
         );
