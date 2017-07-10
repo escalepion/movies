@@ -5,6 +5,7 @@ import {fetchOneMovie, clearOneFetchMovie} from '../actions/';
 
 
 import MovieDetail from '../components/movie_detail';
+import CommentText from '../components/comment_text';
 
 class MovieShow extends Component {
     componentWillMount() {
@@ -21,6 +22,7 @@ class MovieShow extends Component {
         return (
             <div>
                 <MovieDetail movie={movie}/>
+                <CommentText movie={movie}/>
             </div>
         );
     }
