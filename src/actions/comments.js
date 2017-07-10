@@ -1,11 +1,11 @@
 import firebase from 'firebase';
 import {
-    ADD_COMMENT_FEEDBACK
+    ADD_COMMENT_FEEDBACK,
+    RESET_FEEDBACK_STATUS
 } from './types';
 
 export function addComment ({comment}, id) {
     const { currentUser } = firebase.auth();
-    console.log(id);
     if(currentUser) {
     return (dispatch) => {
         firebase.database().ref(`comments/${id}`)
@@ -13,9 +13,18 @@ export function addComment ({comment}, id) {
             comment,
             userId: currentUser.uid
         })
-        .then(dispatch({ type: ADD_COMMENT_FEEDBACK, payload: 'Succesfully created'}))
+        .then( function () {
+            dispatch({ type: ADD_COMMENT_FEEDBACK, payload: 'Comment Added Successfuly'});
+//             setTimeout(() => {
+//     dispatch({ type: RESET_FEEDBACK_STATUS })
+//   }, 3000);
+    }
+        )
+        .then(setTimeout(() => {
+    dispatch({ type: RESET_FEEDBACK_STATUS })
+  }, 3000))
         .catch(error => {
-            dispatch({ type: ADD_COMMENT_FEEDBACK});
+            dispatch({ type: ADD_COMMENT_FEEDBACK, payload: error})
         });
     }
 }
@@ -23,4 +32,10 @@ return {
     type: ADD_COMMENT_FEEDBACK,
     payload: 'Please log in'
 }
+}
+
+export function resetFeedbackStatus () {
+    return {
+        type: RESET_FEEDBACK_STATUS
+    }
 }
