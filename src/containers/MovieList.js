@@ -17,14 +17,16 @@ class MovieList extends Component {
         return countTypes.length;
     }
     listMovies() {
+        if(this.props.movies) {
         return this.props.movies.map(movie => {
             return (
                 <MovieListItem tab={this.state.tab} key={movie.id} movie={movie} />
             );
         });
+        }
     }
     listTabs() {
-        if (this.props.movies.length) {
+        if (this.props.movies && this.props.movies.length) {
             return (
                 <div className="btn-group btn-group-justified">
                     <a onClick={() => this.setState({ tab: "movie" })} className={`btn btn-info ${this.state.tab === 'movie' ? 'active' : null }`}>Movies ({this.countType('movie')})</a>
@@ -35,6 +37,20 @@ class MovieList extends Component {
         }
     }
     render() {
+        if (this.props.loading) {
+            return (
+            <div>
+                Loading
+            </div>
+            );
+        }else if(this.props.movies && !this.props.movies.length) {
+            return (
+            <div>
+                <SearchBar />
+                Sorry no movies found
+            </div>
+            );
+        }
         return (
             <div>
                 <SearchBar />
@@ -46,7 +62,10 @@ class MovieList extends Component {
 }
 
 function mapStateToProps (state) {
-    return { movies : state.movies.all};
+    return { 
+        movies : state.movies.all,
+        loading: state.movies.loading
+    };
 }
 
 export default connect(mapStateToProps, {clearFetchMovies})(MovieList);
