@@ -8,12 +8,20 @@ import {
     CLEAR_FORM_ERROR
 } from './types';
 
-export function signUpUser({email, password}) {
+export function signUpUser({email, password, username}) {
+    const db = firebase.database();
     return function (dispatch){
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => dispatch({type: USER_SIGNUP_SUCCESS}))
+    .then(function(user){
+        dispatch({type: USER_SIGNUP_SUCCESS});
+        db.ref(`users/${user.uid}`).set({name: username});
+        console.log('uid:',user.uid)
+
+  //Here if you want you can sign in the user
+})
     .catch(error => {
-        dispatch({type: USER_SIGNUP_FAIL, payload: error.message});
+        const error_message = error.message;
+        dispatch({type: USER_SIGNUP_FAIL, payload: error_message});
     });
     }
 }

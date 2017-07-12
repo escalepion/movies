@@ -22,7 +22,14 @@ class Signup extends Component {
     render() {
         const { handleSubmit} = this.props;
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}> 
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                    <Field
+                        name="username"
+                        type="text"
+                        component={renderField}
+                        label="User Name"
+                    />
+
                     <Field
                         name="email"
                         type="email"
@@ -52,7 +59,9 @@ class Signup extends Component {
 
  function validate(formProps) {
      const errors = {};
-
+     if(!formProps.username) {
+        errors.username = 'Pls enter a name';
+     }
      if(!formProps.email) {
         errors.email = 'Pls enter a valid mail adress';
      }

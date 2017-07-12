@@ -23,7 +23,7 @@ export default function (state = INITIAL_STATE, action) {
         case MOVIE_LIST_LOADING_STOP:
              return {...state, loading: false};
         case CLEAR_FETCH_MOVIES:
-             return {...state, all:[]};   
+             return {...state, all:null};   
         case FETCH_MOVIES:
             return { ...state, all: action.payload.data.results};  
         case FETCH_ONE_MOVIE:
