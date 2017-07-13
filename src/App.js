@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './App.css';
-import { userLoggedIn, userLoggedOut } from './actions/auth';
+import { userLoggedIn, userLoggedOut, fetchCurrentUser } from './actions/auth';
 import { connect } from 'react-redux';
 import Header from './components/header';
 import RightUserBox from './components/right_user_box';
@@ -24,6 +24,7 @@ state = {
   firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.userLoggedIn();
+        this.props.fetchCurrentUser(firebase.auth().currentUser.uid);
         this.setState({
           loading: false,
           uid: user.uid
@@ -58,4 +59,4 @@ state = {
 function mapStateToProps (state) {
   return {userLogged: state.auth.userLogged};
 }
-export default connect(mapStateToProps, {userLoggedIn, userLoggedOut})(App);
+export default connect(mapStateToProps, {userLoggedIn, userLoggedOut, fetchCurrentUser})(App);

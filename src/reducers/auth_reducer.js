@@ -20,7 +20,7 @@ export default function(state = INITIAL_STATE, action) {
         case CLEAR_FORM_ERROR:
             return {...state, error: null};
         case USER_LOGGED_OUT:
-            return {...state, userLogged: false};
+            return {...state, userLogged: false, currenUser: {}};
         case USER_LOGGED_IN:
             return {...state, userLogged: true};
         case USER_SIGNUP_FAIL:

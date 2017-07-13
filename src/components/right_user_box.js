@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
 import * as actions from '../actions/auth'
 
 class RightUserBox extends Component {
-    componentWillMount() {
-        if(this.props.loggedIn){
-        this.props.fetchCurrentUser(firebase.auth().currentUser.uid);
-        }
-    }
     render() {
     const {loggedIn} = this.props;
     if (loggedIn) {
