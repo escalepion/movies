@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router';
+import firebase from 'firebase';
+import { connect } from 'react-redux';
+import * as actions from '../actions/auth'
 
-const RightUserBox = ({loggedIn}) => {
+class RightUserBox extends Component {
+    componentWillMount() {
+        if(this.props.loggedIn){
+        this.props.fetchCurrentUser(firebase.auth().currentUser.uid);
+        }
+    }
+    render() {
+    const {loggedIn} = this.props;
     if (loggedIn) {
         return (
-            <pre>
-                Hello user
-            </pre>
+            <div className="well">
+                <strong>Hello</strong> <br/>
+                {this.props.currentUser.name}
+            </div>
         );
     }
     return (
@@ -16,6 +27,11 @@ const RightUserBox = ({loggedIn}) => {
                 <Link to="signup">signup </Link>.
             </div>
     );
+    }
 }
 
-export default RightUserBox;
+function mapStateToProps (state) {
+    return {currentUser: state.auth.currentUser};
+}
+
+export default connect(mapStateToProps,actions)(RightUserBox);

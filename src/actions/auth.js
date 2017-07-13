@@ -5,7 +5,8 @@ import {
     USER_SIGNUP_SUCCESS,
     USER_LOGGED_IN,
     USER_LOGGED_OUT,
-    CLEAR_FORM_ERROR
+    CLEAR_FORM_ERROR,
+    FETCH_CURRENT_USER
 } from './types';
 
 export function signUpUser({email, password, username}) {
@@ -52,4 +53,15 @@ export function clearFormError() {
 return {
     type: CLEAR_FORM_ERROR
 };
+}
+
+export function fetchCurrentUser(id) {
+    return function (dispatch) {
+        firebase.database().ref(`users/${id}`)
+        .once('value')
+        .then(function(snapshot) {
+            dispatch({type: FETCH_CURRENT_USER, payload: snapshot.val()});
+        })
+        .catch(error => console.log(error));
+    }
 }

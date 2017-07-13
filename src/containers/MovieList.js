@@ -39,15 +39,15 @@ class MovieList extends Component {
     render() {
         if (this.props.loading) {
             return (
-            <div>
-                Loading
+            <div className="text-center">
+                <i className="fa fa-spinner fa-spin" style={{fontSize: '50px'}}></i>
             </div>
             );
         }else if(this.props.movies && !this.props.movies.length) {
             return (
             <div>
                 <SearchBar />
-                Sorry no movies found
+                <div className="alert alert-warning">Sorry no movies found</div>
             </div>
             );
         }
@@ -67,6 +67,7 @@ function mapStateToProps (state) {
         loading: state.movies.loading
     };
 }
+
 
 export default connect(mapStateToProps, {clearFetchMovies})(MovieList);
 

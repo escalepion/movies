@@ -3,16 +3,20 @@ import {
     USER_SIGNUP_SUCCESS,
     USER_LOGGED_IN,
     USER_LOGGED_OUT,
-    CLEAR_FORM_ERROR
+    CLEAR_FORM_ERROR,
+    FETCH_CURRENT_USER
 } from '../actions/types';
 
 const INITIAL_STATE = {
     error: null,
-    userLogged: false
+    userLogged: false,
+    currentUser: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
+        case FETCH_CURRENT_USER:
+            return {...state, currentUser: action.payload}
         case CLEAR_FORM_ERROR:
             return {...state, error: null};
         case USER_LOGGED_OUT:
