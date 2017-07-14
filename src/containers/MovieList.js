@@ -10,7 +10,7 @@ class MovieList extends Component {
         this.state = {tab:"movie", movieCount: 0, tvCount: 0, personCount: 0};
     }
     componentWillUnmount(){
-        this.props.clearFetchMovies();
+        //this.props.clearFetchMovies();
     }
     countType(type) {
         const countTypes = this.props.movies.filter(movie => movie.media_type === type);
@@ -36,7 +36,21 @@ class MovieList extends Component {
             );
         }
     }
+    renderAlert (message) {
+        return (
+            <div className="alert alert-warning">
+                {message}
+            </div>
+        );
+    }
+    renderMovies () {
+        const alertMessage = `No item found in category: ${this.state.tab}, sorry`;
+        if (this.props.movies) {
+            return this.countType(this.state.tab) === 0 ? this.renderAlert(alertMessage) : this.listMovies();
+        }
+    }
     render() {
+        
         if (this.props.loading) {
             return (
             <div className="text-center">
@@ -54,8 +68,8 @@ class MovieList extends Component {
         return (
             <div>
                 <SearchBar />
-                {this.listTabs()}  
-                {this.listMovies()}
+                {this.listTabs()}
+                {this.renderMovies()}
             </div>
         );
     }
