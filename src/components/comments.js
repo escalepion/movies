@@ -8,7 +8,11 @@ class Comments extends Component {
     componentWillMount() {
         this.props.fetchMovieComments(this.props.movie.id);
     }
+    componentWillUnMount() {
+        this.props.clearMovieComments();
+    }
     listComments() {
+        console.log(this.props.comments);
         return this.props.comments.map((comment) => {
             return (
                 <CommentContainer key={comment.uid} comment={comment} /> 

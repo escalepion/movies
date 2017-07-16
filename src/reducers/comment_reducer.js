@@ -1,7 +1,8 @@
 import {
     ADD_COMMENT_FEEDBACK,
     RESET_FEEDBACK_STATUS,
-    FETCH_MOVIE_COMMENTS
+    FETCH_MOVIE_COMMENTS,
+    CLEAR_MOVIE_COMMENTS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,6 +12,8 @@ const INITIAL_STATE = {
 
 export default function (state=INITIAL_STATE, action) {
     switch (action.type) {
+        case CLEAR_MOVIE_COMMENTS:
+            return {...state, movieComments: null};
         case FETCH_MOVIE_COMMENTS:
             return {...state, movieComments: action.payload };
         case ADD_COMMENT_FEEDBACK:
