@@ -8,7 +8,7 @@ class Comments extends Component {
     componentWillMount() {
         this.props.fetchMovieComments(this.props.movie.id);
     }
-    componentWillUnMount() {
+    componentWillUnmount() {
         this.props.clearMovieComments();
     }
     listComments() {
