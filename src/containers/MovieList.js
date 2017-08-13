@@ -10,7 +10,7 @@ class MovieList extends Component {
         this.state = {tab:"movie", movieCount: 0, tvCount: 0, personCount: 0};
     }
     componentWillUnmount(){
-        //this.props.clearFetchMovies();
+        this.props.clearFetchMovies();
     }
     countType(type) {
         const countTypes = this.props.movies.filter(movie => movie.media_type === type);
