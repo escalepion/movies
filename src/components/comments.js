@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/comments';
@@ -12,7 +12,6 @@ class Comments extends Component {
         this.props.clearMovieComments();
     }
     listComments() {
-        console.log(this.props.comments);
         return this.props.comments.map((comment) => {
             return (
                 <CommentContainer key={comment.uid} comment={comment} /> 
@@ -20,6 +19,7 @@ class Comments extends Component {
         });
     }
     render() {
+        console.log(this.props.comments);
         return (
             <div>
             {this.listComments()}
@@ -29,9 +29,10 @@ class Comments extends Component {
 }
 
 function mapStateToProps(state) {
-    const comments = _.map(state.comments.movieComments, (val, uid) => {
-        return { ...val, uid };
-    });
+    // const comments = _.map(state.comments.movieComments, (val, uid) => {
+    //     return { ...val, uid };
+    // });
+    const comments = state.comments.commentsArray;
     return {comments};
 }
 

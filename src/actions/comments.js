@@ -3,7 +3,8 @@ import {
     ADD_COMMENT_FEEDBACK,
     RESET_FEEDBACK_STATUS,
     FETCH_MOVIE_COMMENTS,
-    CLEAR_MOVIE_COMMENTS
+    CLEAR_MOVIE_COMMENTS,
+    INJECT_MOVIE_COMMENT
 } from './types';
 
 export function addComment ({comment}, id) {
@@ -45,7 +46,14 @@ export function resetFeedbackStatus () {
 export function fetchMovieComments (id) {
     const ref = firebase.database().ref(`comments/${id}`);
     return (dispatch) => {
-        ref.on('value', function(snapshot) {
+        ref.on('child_added', function(snapshot) {
+            const commentData = snapshot.val();
+            commentData.uid = snapshot.key;
+            const userRef = firebase.database().ref(`users/${snapshot.val().userId}`);
+            userRef.once('value', function(snap) {
+                commentData.name = snap.val().name;
+                dispatch({ type: INJECT_MOVIE_COMMENT, payload: commentData });
+            }).catch(err => console.log(err));
             dispatch({ type: FETCH_MOVIE_COMMENTS, payload: snapshot.val()});
         });
     }

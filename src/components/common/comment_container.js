@@ -9,6 +9,7 @@ const CommentContainer= ({comment}) => {
             <img src="https://gif-avatars.com/img/45x45/avatar-68.gif" alt="Profile Pic" className="media-object" style = { divStyle } />
             </div>
                 <div className="media-body">
+                    <p>Username: {comment.name}</p>
                     <p>{comment.comment}</p>
                 </div>
             </div>
