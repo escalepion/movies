@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 export default function (state=INITIAL_STATE, action) {
     switch (action.type) {
         case INJECT_MOVIE_COMMENT:
-            return {...state, commentsArray: [...state.commentsArray, action.payload]};
+            return {...state, commentsArray: [action.payload, ...state.commentsArray]};
         case CLEAR_MOVIE_COMMENTS:
             return {...state, movieComments: null};
         case FETCH_MOVIE_COMMENTS:

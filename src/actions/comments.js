@@ -9,12 +9,14 @@ import {
 
 export function addComment ({comment}, id) {
     const { currentUser } = firebase.auth();
+    const date = Date.now();
     if(currentUser) {
     return (dispatch) => {
         firebase.database().ref(`comments/${id}`)
         .push({
             comment,
-            userId: currentUser.uid
+            userId: currentUser.uid,
+            date
         })
         .then( function () {
             dispatch({ type: ADD_COMMENT_FEEDBACK, payload: 'Comment Added Successfuly'});
@@ -46,14 +48,14 @@ export function resetFeedbackStatus () {
 export function fetchMovieComments (id) {
     const ref = firebase.database().ref(`comments/${id}`);
     return (dispatch) => {
-        ref.on('child_added', function(snapshot) {
+        ref.orderByChild('date').on('child_added', function(snapshot) {
             const commentData = snapshot.val();
             commentData.uid = snapshot.key;
             const userRef = firebase.database().ref(`users/${snapshot.val().userId}`);
-            userRef.once('value', function(snap) {
-                commentData.name = snap.val().name;
-                dispatch({ type: INJECT_MOVIE_COMMENT, payload: commentData });
-            }).catch(err => console.log(err));
+                    userRef.once('value', function(snap) {
+                    commentData.name = snap.val().name;            
+                    }).catch(err => console.log(err));
+            dispatch({ type: INJECT_MOVIE_COMMENT, payload: commentData });
             dispatch({ type: FETCH_MOVIE_COMMENTS, payload: snapshot.val()});
         });
     }
