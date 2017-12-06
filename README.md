@@ -1,1 +1,1 @@
-Searching movies app.. Using themoviedb api.
+An app that you can search movies... Using themoviedb api.
